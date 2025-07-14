@@ -1,16 +1,16 @@
-### * Docker Setup for Blog Management * ###
+### * Docker Setup for Jesus Server * ###
 # ─────────────────────────────────────────────────────────────────────────────
-COMPOSE_FILE := docker-compose.yml
-PROJECT_NAME := blog-management
-SERVICE      := api
-IMAGE        := shahadathhs/blog-management:latest
-CONTAINER    := blog-management-api
+COMPOSE_FILE := compose.yml
+PROJECT_NAME := jesus-server
+SERVICE      := server
+IMAGE        := jesus-server:latest
+CONTAINER    := jesus-server-api
 
-# shorthand for docker‐compose
+# shorthand for docker-compose
 DC := docker compose -p $(PROJECT_NAME) -f $(COMPOSE_FILE)
 
 .PHONY: help up down restart logs ps \
-      	build push pull remove rebuild \
+        build push pull remove rebuild \
         shell env prune clean view-*
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -21,7 +21,7 @@ help:
 # ─────────────────────────────────────────────────────────────────────────────
 up: ## Build & start services
 	@echo "🚀 Starting containers..."
-	@$(DC) up -d
+	@$(DC) up
 
 down: ## Stop & remove containers + volumes
 	@echo "🛑 Stopping and removing containers..."
@@ -71,7 +71,7 @@ clean: ## Stop & remove everything related
 	-docker stop $(CONTAINER)
 	-docker rm $(CONTAINER)
 	-docker rmi $(IMAGE)
-	make prune-all
+	make prune
 
 # ─────────────────────────────────────────────────────────────────────────────
 view-containers: ## List all containers
